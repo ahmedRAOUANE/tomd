@@ -1,10 +1,11 @@
 import sys
 from pathlib import Path
-from markitdown import MarkItDown
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 def convert_to_markdown(file_path: str) -> str:
+    from markitdown import MarkItDown
+
     source_file = Path(file_path)
 
     if not source_file.exists():
