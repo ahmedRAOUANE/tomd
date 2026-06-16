@@ -1,5 +1,5 @@
 #define MyAppName "tomd"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.2.5"
 #define MyAppPublisher "ahmed"
 #define MyAppURL ""
 #define MyAppExeName "tomd.exe"

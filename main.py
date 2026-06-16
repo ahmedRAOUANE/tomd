@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-VERSION = "1.2.4"
+VERSION = "1.2.5"
 
 def save_file(source_file: str, content: str)->str:
     output_file = Path(source_file).with_suffix(".md")
@@ -31,9 +31,11 @@ def print_help():
 tomd - Convert files to Markdown
 
 USAGE:
-  tomd <file>        Convert file to markdown
-  tomd -h, --help    Show help
-  tomd -v, --version Show version
+  tomd <file>                    Convert file to markdown
+  tomd -h, --help                Show help
+  tomd -v, --version             Show version
+  tomd --compact <file>          optimize the output file
+  tomd --log                     print logs, you use it with --compact to see how much you've reduced
 """)
 
 def print_version():
