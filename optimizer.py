@@ -41,6 +41,9 @@ def optimize_markdown(text: str):
     text, control_stats = remove_control_chars(text)
     stats.update(control_stats)
 
+    text, garbage_stats = remove_garbage_characters(text)
+    stats.update(garbage_stats)
+
     text = normalize_whitespace(text)
     text = merge_broken_lines(text)
     text = collapse_blank_lines(text)
@@ -60,6 +63,21 @@ def remove_control_chars(text: str) -> str:
         "vertical_tabs_removed": vcount,
     }
 
+def remove_garbage_characters(text: str):
+    garbage_patterns = [
+        r"[]",
+    ]
+
+    removed_count = 0
+
+    for pattern in garbage_patterns:
+        matches = re.findall(pattern, text)
+        removed_count += len(matches)
+        text = re.sub(pattern, "", text)
+
+    return text, {
+        "garbage_chars_removed": removed_count
+    }
 
 def normalize_whitespace(text: str) -> str:
     text = re.sub(r"[ \t]+", " ", text)
@@ -68,10 +86,6 @@ def normalize_whitespace(text: str) -> str:
         line.rstrip()
         for line in text.splitlines()
     )
-
-
-def collapse_blank_lines(text: str) -> str:
-    return re.sub(r"\n{3,}", "\n\n", text)
 
 
 def merge_broken_lines(text: str) -> str:
@@ -97,4 +111,7 @@ def merge_broken_lines(text: str) -> str:
 
     return "\n".join(result)
 
+
+def collapse_blank_lines(text: str) -> str:
+    return re.sub(r"\n{3,}", "\n\n", text)
 
