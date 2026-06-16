@@ -44,3 +44,34 @@ def merge_broken_lines(text: str) -> str:
             result.append(line)
 
     return "\n".join(result)
+
+
+def print_optimization_stats(
+    original: str,
+    optimized: str
+):
+    original_chars = len(original)
+    optimized_chars = len(optimized)
+
+    saved_chars = original_chars - optimized_chars
+
+    reduction = (
+        (saved_chars / original_chars) * 100
+        if original_chars > 0
+        else 0
+    )
+
+    original_tokens = original_chars // 4
+    optimized_tokens = optimized_chars // 4
+    saved_tokens = original_tokens - optimized_tokens
+
+    print("\nOptimization Statistics")
+    print("-" * 25)
+    print(f"Original size : {original_chars:,} chars")
+    print(f"Optimized size: {optimized_chars:,} chars")
+    print(f"Saved         : {saved_chars:,} chars")
+    print(f"Reduction     : {reduction:.1f}%")
+    print()
+    print(f"Estimated tokens before: {original_tokens:,}")
+    print(f"Estimated tokens after : {optimized_tokens:,}")
+    print(f"Estimated tokens saved : {saved_tokens:,}")
