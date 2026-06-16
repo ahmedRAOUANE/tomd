@@ -1,12 +1,64 @@
 import re
 
+def print_optimization_stats(
+    original: str,
+    optimized: str,
+    stats: dict
+):
+    original_chars = len(original)
+    optimized_chars = len(optimized)
 
-def optimize_markdown(text: str) -> str:
+    saved_chars = original_chars - optimized_chars
+
+    reduction = (
+        (saved_chars / original_chars) * 100
+        if original_chars > 0
+        else 0
+    )
+
+    original_tokens = original_chars // 4
+    optimized_tokens = optimized_chars // 4
+    saved_tokens = original_tokens - optimized_tokens
+
+    print("\nOptimization Statistics")
+    print("-" * 25)
+    print(f"Original size : {original_chars:,} chars")
+    print(f"Optimized size: {optimized_chars:,} chars")
+    print(f"Saved         : {saved_chars:,} chars")
+    print(f"Reduction     : {reduction:.1f}%")
+    print()
+    print(f"Estimated tokens before: {original_tokens:,}")
+    print(f"Estimated tokens after : {optimized_tokens:,}")
+    print(f"Estimated tokens saved : {saved_tokens:,}")
+    print()
+    for item in stats:
+        print(str(item).replace("_", " "), stats[item])
+
+
+def optimize_markdown(text: str):
+    stats = {}
+
+    text, control_stats = remove_control_chars(text)
+    stats.update(control_stats)
+
     text = normalize_whitespace(text)
     text = merge_broken_lines(text)
     text = collapse_blank_lines(text)
 
-    return text
+    return text, stats
+
+
+def remove_control_chars(text: str) -> str:
+    fcount = text.count("\f")
+    vcount = text.count("\v")
+
+    text = text.replace("\f", "")
+    text = text.replace("\v", "")
+
+    return text, {
+        "form_feeds_removed": fcount,
+        "vertical_tabs_removed": vcount,
+    }
 
 
 def normalize_whitespace(text: str) -> str:
@@ -46,32 +98,3 @@ def merge_broken_lines(text: str) -> str:
     return "\n".join(result)
 
 
-def print_optimization_stats(
-    original: str,
-    optimized: str
-):
-    original_chars = len(original)
-    optimized_chars = len(optimized)
-
-    saved_chars = original_chars - optimized_chars
-
-    reduction = (
-        (saved_chars / original_chars) * 100
-        if original_chars > 0
-        else 0
-    )
-
-    original_tokens = original_chars // 4
-    optimized_tokens = optimized_chars // 4
-    saved_tokens = original_tokens - optimized_tokens
-
-    print("\nOptimization Statistics")
-    print("-" * 25)
-    print(f"Original size : {original_chars:,} chars")
-    print(f"Optimized size: {optimized_chars:,} chars")
-    print(f"Saved         : {saved_chars:,} chars")
-    print(f"Reduction     : {reduction:.1f}%")
-    print()
-    print(f"Estimated tokens before: {original_tokens:,}")
-    print(f"Estimated tokens after : {optimized_tokens:,}")
-    print(f"Estimated tokens saved : {saved_tokens:,}")

@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-VERSION = "1.2.1"
+VERSION = "1.2.4"
 
 def save_file(source_file: str, content: str)->str:
     output_file = Path(source_file).with_suffix(".md")
@@ -75,7 +75,7 @@ if __name__ == "__main__":
         if compact_mode:
             from optimizer import optimize_markdown
 
-            optimized_md = optimize_markdown(md_content)
+            optimized_md, stats = optimize_markdown(md_content)
 
             output_file = save_file(
                 file_path,
@@ -91,7 +91,8 @@ if __name__ == "__main__":
                 
                 print_optimization_stats(
                     md_content,
-                    optimized_md
+                    optimized_md,
+                    stats
                 )
 
         else:
