@@ -1,36 +1,22 @@
-#define MyAppName "tomd"
-#define MyAppVersion "1.2.5"
-#define MyAppPublisher "ahmed"
-#define MyAppURL ""
-#define MyAppExeName "tomd.exe"
-#define MyAppAssocName MyAppName + " File"
-#define MyAppAssocKey StringChange(MyAppAssocName, " ", "")
-
 [Setup]
-AppId={{50E7B0A0-3934-4823-A0CE-366F4A121AAD}
-AppName={#MyAppName}
-AppVersion={#MyAppVersion}
-AppVerName={#MyAppName} {#MyAppVersion}
-AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppName}
-UninstallDisplayIcon={app}\{#MyAppExeName}
-ArchitecturesAllowed=x64compatible
-ArchitecturesInstallIn64BitMode=x64compatible
-ChangesAssociations=yes
-DisableProgramGroupPage=yes
-PrivilegesRequired=lowest
-OutputBaseFilename=tomd_setup
+AppName=tomd
+AppVersion=1.2.6
+AppPublisher=Ahmed Raouane
+AppPublisherURL=https://github.com/ahmedRAOUANE/tomd
+AppSupportURL=https://github.com/ahmedRAOUANE/tomd
+AppUpdatesURL=https://github.com/ahmedRAOUANE/tomd
+DefaultDirName={autopf}\tomd
+DefaultGroupName=tomd
+Compression=lzma
 SolidCompression=yes
-WizardStyle=modern dynamic
+OutputDir=Output
+OutputBaseFilename=tomd-setup
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "dist\tomd\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Run]
 Filename: "powershell.exe"; \

@@ -13,6 +13,8 @@ A Python utility that converts various file formats into Markdown (.md) files.
 - Handles edge cases (e.g., if source is already `.md`, saves as `[filename]_converted.md`)
 - Error handling for missing or invalid files
 - UTF-8 encoded output
+- `--compact` command for optization
+- `--log` command gives you a detailed report about how much tokens you saved
 
 ## How It Works
 
@@ -60,11 +62,18 @@ Markdown saved to: C:\path\to\your\document.md
 ```
 
 ## Example
-
+- in developement
 ```bash
-python main.py
-Enter the local file path: /Users/user/Documents/report.docx
+python main.py file path: /Users/user/Documents/report.docx
 Markdown saved to: /Users/user/Documents/report.md
+```
+- in production
+```bash
+  tomd <path to file>            Convert file to markdown
+  tomd -h, --help                Show help
+  tomd -v, --version             Show version
+  tomd --compact <path to file>  optimize the output file
+  tomd --log                     print logs, you use it with --compact to see how much you've reduced
 ```
 
 ## Error Handling
@@ -78,6 +87,12 @@ The tool handles common errors gracefully:
 
 See `requirements.txt` for the list of required packages. The main dependency is:
 - `MarkItDown`: Library for converting various document formats to Markdown
+
+## Packaging
+- 1. run the command 
+`pyinstaller --onedir --clean --name tomd main.py`
+this will create a `dist/tomd/` folder
+- 2. open `setup.iss` with [inno setup](https://jrsoftware.org/isdl.php/Inno-Setup-Downloads) and run the script this should create `Output/tomd_setup.exe` file
 
 ## License
 

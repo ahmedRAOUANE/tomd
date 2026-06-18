@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-VERSION = "1.2.5"
+VERSION = "1.2.6"
 
 def save_file(source_file: str, content: str)->str:
     output_file = Path(source_file).with_suffix(".md")
